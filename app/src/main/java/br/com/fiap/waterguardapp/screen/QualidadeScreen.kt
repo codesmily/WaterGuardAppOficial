@@ -1,10 +1,12 @@
 package br.com.fiap.waterguardapp.screen
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.background
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -54,23 +56,42 @@ fun QualidadeScreen(viewModel: QualidadeViewModel = viewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp),
+            .padding(24.dp)
+            .background(Color(0xFFE3F2FD)), // Fundo em azul claro
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text("*Qualidade da Água*", style = MaterialTheme.typography.headlineSmall)
+        Text(
+            "*Qualidade da Água*",
+            style = MaterialTheme.typography.headlineSmall.copy(color = Color(0xFF0288D1)) // Título em azul escuro
+        )
         Spacer(modifier = Modifier.height(24.dp))
 
         qualidadeState?.let { qualidade ->
-            Text("pH: ${"%.2f".format(qualidade.ph)}")
-            Text("Turbidez: ${"%.2f".format(qualidade.turbidez)} NTU")
-            Text("Temperatura: ${"%.2f".format(qualidade.temperatura)} °C")
-            Text("Última atualização: ${formatarDataHora(qualidade.timestamp)}")
+            Text(
+                "pH: ${"%.2f".format(qualidade.ph)}",
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF039BE5)) // Texto azul médio
+            )
+            Text(
+                "Turbidez: ${"%.2f".format(qualidade.turbidez)} NTU",
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF039BE5)) // Texto azul médio
+            )
+            Text(
+                "Temperatura: ${"%.2f".format(qualidade.temperatura)} °C",
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF039BE5)) // Texto azul médio
+            )
+            Text(
+                "Última atualização: ${formatarDataHora(qualidade.timestamp)}",
+                style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFF0288D1)) // Texto azul escuro
+            )
         } ?: run {
-            CircularProgressIndicator()
+            CircularProgressIndicator(
+                color = Color(0xFF0288D1) // Indicador de carregamento azul escuro
+            )
         }
     }
 }
+
 fun formatarDataHora(timestamp: Long): String {
     val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
     return sdf.format(Date(timestamp))

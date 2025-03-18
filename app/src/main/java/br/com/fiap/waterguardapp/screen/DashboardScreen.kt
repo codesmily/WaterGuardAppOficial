@@ -54,11 +54,26 @@ fun DashboardScreen(navController: NavController) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "Previsão do Tempo para seus Próximos Dias",
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Aproveite a chuva para economizar! Colete para Irrigar plantas, lavar o quintal, etc.",
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.White,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+
         if (isLoading) {
             CircularProgressIndicator(color = Color.White)
         } else {
             forecastData?.let { forecast ->
-
                 LazyColumn(modifier = Modifier.fillMaxSize()) {
                     items(forecast.list.take(5)) { forecastItem ->
                         Card(
@@ -82,7 +97,6 @@ fun DashboardScreen(navController: NavController) {
                     }
                 }
             }
-
             errorMessage?.let {
                 Text(text = it, color = Color.Red, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }

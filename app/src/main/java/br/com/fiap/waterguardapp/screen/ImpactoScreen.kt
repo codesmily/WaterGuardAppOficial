@@ -71,12 +71,12 @@ fun ImpactoScreen() {
                 ) {
                     Text(
                         text = "Impacto do Consumo de Água",
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleMedium.copy(color = Color(0xFF1E3A8A)), // Azul sutil para o título
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
                     Text(
                         text = "A quantidade máxima recomendada de água que uma pessoa pode consumir de forma sustentável é cerca de 300 litros por dia, considerando atividades como banho, lavar louça e roupas.",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFF4B6A9D)) // Azul suave para o texto
                     )
                 }
             }
@@ -94,7 +94,7 @@ fun ImpactoScreen() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp)
-                        .background(Color.LightGray.copy(alpha = 0.3f), shape = MaterialTheme.shapes.medium)
+                        .background(Color(0xFFBBE1FA), shape = MaterialTheme.shapes.medium) // Azul claro para o fundo
                         .padding(16.dp)
                 ) {
                     Text(
@@ -132,9 +132,10 @@ fun ImpactoScreen() {
             },
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(16.dp)
+                .padding(16.dp),
+            containerColor = Color(0xFF1E3A8A) // Azul para o botão flutuante
         ) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
+            Icon(imageVector = Icons.Default.Add, contentDescription = "Add", tint = Color.White)
         }
 
         // Input Dialog
@@ -147,26 +148,26 @@ fun ImpactoScreen() {
                     .background(MaterialTheme.colorScheme.background, shape = MaterialTheme.shapes.large)
                     .align(Alignment.Center)
             ) {
-                Text("Insira o tempo gasto em minutos")
+                Text("Insira o tempo gasto em minutos", color = Color(0xFF4B6A9D)) // Azul suave para o texto
 
                 TextField(
                     value = tempoBanho,
                     onValueChange = { tempoBanho = it },
-                    label = { Text("Tempo no Banho (minutos)") },
+                    label = { Text("Tempo no Banho (minutos)", color = Color(0xFF1E3A8A)) }, // Azul no rótulo
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                 )
 
                 TextField(
                     value = tempoLouça,
                     onValueChange = { tempoLouça = it },
-                    label = { Text("Tempo lavando Louça (minutos)") },
+                    label = { Text("Tempo lavando Louça (minutos)", color = Color(0xFF1E3A8A)) }, // Azul no rótulo
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                 )
 
                 TextField(
                     value = tempoMaquina,
                     onValueChange = { tempoMaquina = it },
-                    label = { Text("Tempo na Máquina de Lavar (minutos)") },
+                    label = { Text("Tempo na Máquina de Lavar (minutos)", color = Color(0xFF1E3A8A)) }, // Azul no rótulo
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
                 )
 
@@ -175,9 +176,10 @@ fun ImpactoScreen() {
                         calcularGasto()
                         showInputDialog = false // Fechar o input após cálculo
                     },
-                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 16.dp)
+                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(top = 16.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1E3A8A)) // Azul para o botão
                 ) {
-                    Text("Calcular")
+                    Text("Calcular", color = Color.White)
                 }
             }
         }

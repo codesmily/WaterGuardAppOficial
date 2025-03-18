@@ -9,7 +9,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.background
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,12 +31,16 @@ fun DicasScreen() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Dicas para economizar água") }
+                title = { Text("Dicas para economizar água") },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(
+                    containerColor = Color(0xFF1E88E5) // Azul escuro
+                )
             )
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* Ação para adicionar uma nova dica */ }
+                onClick = { /* Ação para adicionar uma nova dica */ },
+                containerColor = Color(0xFF1976D2) // Azul mais forte
             ) {
                 Icon(imageVector = Icons.Filled.Add, contentDescription = "Adicionar Dica")
             }
@@ -44,6 +50,7 @@ fun DicasScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .background(Color(0xFFE3F2FD)) // Azul claro de fundo
         ) {
             // Campo de pesquisa
             OutlinedTextField(
@@ -52,7 +59,12 @@ fun DicasScreen() {
                 label = { Text("Pesquisar dica") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(16.dp),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = Color.White,
+                    focusedBorderColor = Color(0xFF1E88E5), // Azul escuro para borda
+                    unfocusedBorderColor = Color(0xFF90CAF9) // Azul mais claro para borda
+                )
             )
             // Lista rolável de cards filtrados conforme o campo de pesquisa
             LazyColumn(
@@ -78,27 +90,31 @@ data class Tip(val title: String, val description: String)
 fun TipCard(tipTitle: String, tipDescription: String) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White) // Cartão com fundo branco
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
                 text = tipTitle,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                color = Color(0xFF1976D2) // Azul forte no título
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = tipDescription,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                color = Color(0xFF0D47A1) // Azul mais escuro para o texto
             )
             Spacer(modifier = Modifier.height(8.dp))
             // Componente adicional: botão para marcar a dica como útil
             Button(
                 onClick = { /* ação ao marcar a dica como útil */ },
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier.align(Alignment.End),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF42A5F5)) // Azul claro
             ) {
-                Text("Útil")
+                Text("Útil", color = Color.White)
             }
         }
     }

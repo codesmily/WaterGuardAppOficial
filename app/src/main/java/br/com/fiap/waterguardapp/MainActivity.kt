@@ -7,10 +7,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,80 +33,57 @@ import com.fiap.waterguardapp.screen.DashboardScreen
 
 @Composable
 fun WaterGuardApp(navController: NavHostController) {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
-            .background(Color(0xFFe3f2fd)), // Cor de fundo azul claro
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF1976D2), // Azul forte
+                        Color(0xFF42a5f5), // Azul claro
+                        Color(0xFF81d4fa)  // Azul mais suave
+                    )
+                )
+            )
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
     ) {
-        Button(
-            onClick = { navController.navigate("dashboard") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3)) // Azul
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = "Dashboard",
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.White
+            // Lista de botões com texto
+            val buttons = listOf(
+                "Previsão" to "dashboard",
+                "Qualidade da Água" to "qualidade",
+                "Dicas" to "dicas",
+                "Impacto" to "impacto"
             )
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = { navController.navigate("qualidade") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF42a5f5)) // Azul claro
-        ) {
-            Text(
-                text = "Qualidade da Água",
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.White
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = { navController.navigate("dicas") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1976D2)) // Azul mais escuro
-        ) {
-            Text(
-                text = "Dicas",
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.White
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = { navController.navigate("impacto") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1565C0)) // Azul mais escuro
-        ) {
-            Text(
-                text = "Impacto",
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.White
-            )
+            buttons.forEach { (text, route) ->
+                Button(
+                    onClick = { navController.navigate(route) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .padding(8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = ButtonDefaults.buttonElevation(8.dp)
+                ) {
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.titleMedium,
+                        color = Color(0xFF1976D2) // Azul mais forte para o texto
+                    )
+                }
+            }
         }
     }
 }
+
 
 @Composable
 fun AppNavigation() {
